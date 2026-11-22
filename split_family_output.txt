@@ -1,0 +1,10 @@
+n=5 s=2 graphs=4 a=1 r=1 j=0 family=1 computed_minimizers=1 family_rho=[2.855772506636,2.855772506636] computed_min=2.855772506636 kappa=2.855772506636 OK
+n=7 s=2 graphs=107 a=1 r=3 j=1 family=2 computed_minimizers=2 family_rho=[2.641186476193,2.641186476193] computed_min=2.641186476193 kappa=2.641186476193 OK
+n=9 s=2 graphs=2075 a=1 r=5 j=2 family=2 computed_minimizers=2 family_rho=[2.503504498940,2.503504498940] computed_min=2.503504498940 kappa=2.503504498940 OK
+n=10 s=4 graphs=53863 a=1 r=2 j=0 family=7 computed_minimizers=7 family_rho=[2.855772506636,2.855772506636] computed_min=2.855772506636 kappa=2.855772506636 OK
+n=11 s=2 graphs=33851 a=2 r=1 j=0 family=2 computed_minimizers=2 family_rho=[2.420231344668,2.420231344668] computed_min=2.420231344668 kappa=2.420231344668 OK
+n=13 s=2 graphs=489387 a=2 r=3 j=1 family=2 computed_minimizers=2 family_rho=[2.367098425857,2.367098425857] computed_min=2.367098425857 kappa=2.367098425857 OK
+n=14 s=4 graphs=19587 a=1 r=6 j=1 family=17 computed_minimizers=17 family_rho=[2.641186476193,2.641186476193] computed_min=2.641186476193 kappa=2.641186476193 OK
+n=15 s=2 graphs=1423 a=2 r=5 j=2 family=2 computed_minimizers=2 family_rho=[2.323056759356,2.323056759356] computed_min=2.323056759356 kappa=2.323056759356 OK
+n=17 s=2 graphs=3070 a=3 r=1 j=0 family=2 computed_minimizers=2 family_rho=[2.290776209081,2.290776209081] computed_min=2.290776209081 kappa=2.290776209081 OK
+rows checked 9, mismatches 0

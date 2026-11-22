@@ -1,0 +1,995 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{placeins}
+\usepackage{hyperref}
+\usepackage[nameinlink,noabbrev,capitalise]{cleveref}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\doi}[1]{\href{https://doi.org/#1}{doi:#1}}
+\newcommand{\G}{\mathcal{G}}
+
+\title{A proof of Belardo's conjecture on graphs with minimum index}
+\author{Yitzchak Shmalo\\
+Einstein Institute of Mathematics, The Hebrew University of Jerusalem\\
+Givat Ram, Jerusalem, Israel\\
+\texttt{yitzchak.shmalo@gmail.com}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove a lower bound on the index of a connected graph with $n$ vertices and $n+s$ edges, where $s\ge1$ and
+$n\ge\max(2s,4)$. Equality holds if and only if $s$ divides $n$ and the graph is obtained from a cubic multigraph on
+$2s$ vertices by replacing its edges with paths of two consecutive lengths, each vertex being an end of equally many
+longer paths. This proves Theorem~7 and Conjecture~9 of Belardo's survey and answers Hong's question affirmatively;
+for integer $n/s$ the bound equals that of Ben-Shimon, Eisner and Hoory exactly when $n/s\in\{2,3,4,5,8\}$. For even
+$s$ and $n$ an odd multiple of $s/2$ we determine the minimizers when every branch vertex of the core has degree $3$,
+and without this condition for $s\in\{2,4,6\}$; for $s=2$ we obtain the tricyclic graphs of minimum index at every order, a question raised by Gupta.
+\end{abstract}
+
+\noindent\textbf{Keywords:} spectral radius, index, minimum spectral radius, internal path, cubic multigraph.
+
+\noindent\textbf{MSC 2020:} 05C50, 05C35.
+
+\section{Introduction}\label{sec:intro}
+
+All graphs are finite and simple unless they are called multigraphs. The index $\rho(G)$ of a graph $G$ is the largest
+eigenvalue of its adjacency matrix. For integers $s\ge1$ and $n$, let $\G(n,s)$ be the set of connected graphs with $n$
+vertices and $n+s$ edges; the cyclomatic number of such a graph is $s+1$. We ask which graphs in $\G(n,s)$ have the
+smallest index; such a graph is a \emph{minimizer}.
+
+Among connected graphs of given order the path has the smallest index~\cite{CS57} (see also~\cite[Theorem~1]{Be19}),
+and among connected unicyclic graphs the cycle, whose index is $2$~\cite[p.~97]{Be19}. For $s=1$ Simi\'c~\cite{Si89} showed that the minimizers are the theta graph
+$\theta(\mu,\mu,n+1-2\mu)$ and the dumbbell $D(\mu,n+1-2\mu,\mu)$ with $\mu=\lceil n/3\rceil$. Here the theta graph
+$\theta(x,y,z)$ consists of three internally disjoint paths of lengths $x,y,z$ between two vertices, and the dumbbell
+$D(x,y,z)$ consists of cycles of lengths $x$ and $z$ joined by a path of length $y$. An earlier paper of Simi\'c and
+Koci\'c~\cite{SK86} shows that among theta graphs of fixed order the index is smallest when the three lengths differ by
+at most one. Write $\Delta(G)$ and $\delta(G)$ for the maximum and minimum degree of $G$. Hong~\cite{Ho93} asked whether
+a graph with the smallest index among connected graphs of given order and size satisfies $\Delta(G)-\delta(G)\le1$. In
+Hong's original wording the minimizer is also required to be non-regular, and in that form the statement fails when the
+average degree is an integer, as R\'eti showed~\cite{Re18}. Cioab\u{a}, Gupta and Marques~\cite{CGM24} answered the
+question affirmatively for dense graphs, with at least $\binom{n-1}{2}-2$ edges, and for $n^2/4-1$ and $n^2/3-1$
+edges. Kosti\'c, Dra\v{z}i\'c, Savi\'c and Stani\'c~\cite{KDSS} computed minimizers by variable neighbourhood search.
+Ben-Shimon, Eisner and Hoory~\cite{BEH} bounded the index of a graph with $n$ vertices and $e$ edges from below by the
+smallest spectral radius of a nonnegative symmetric $n\times n$ matrix with entry sum $2e$ and integral row sums, and
+determined the average degrees at which a graph attains this bound.
+
+An internal path of a graph is a path $v_0v_1\cdots v_\ell$, possibly with $v_0=v_\ell$, such that $v_0$ and $v_\ell$
+have degree at least three and $v_1,\dots,v_{\ell-1}$ have degree two. Hoffman and Smith~\cite{HS75} showed that
+subdividing an edge of an internal path decreases the index, apart from a family of exceptions of index $2$ (see
+also~\cite[Lemma~2]{Be19}). Belardo~\cite{Be19} surveys this problem and records three statements from his joint work
+with Simi\'c. In his notation $G_{n,c}$ is the set of connected graphs with $n$ vertices and cyclomatic number $c$, so
+$c-1=s$; for a multigraph $B$, $B(k)$ is obtained by inserting $k$ vertices into each edge of $B$.
+
+\begin{itemize}[leftmargin=2em]
+\item Conjecture~6 of~\cite{Be19}: in a minimizer the lengths of the internal paths differ pairwise by at most one.
+\item Theorem~7 of~\cite{Be19}, stated there without proof: if $n=(3k+2)(c-1)$ with $k\ge0$, every minimizer is
+$B(k)$ for a cubic multigraph $B$ on $2(c-1)$ vertices.
+\item Conjecture~9 of~\cite{Be19}: let $n=(3k+h)(c-1)$ with $h\in\{2,3,4\}$, and assume that in a
+minimizer the lengths of the internal paths differ by at most one. Then for some cubic multigraph $B$ on $2(c-1)$
+vertices the minimizer is $B(k)$ if $h=2$. If $h=3$ it is obtained from $B(k)$ by inserting one more vertex into each
+path coming from a perfect matching of $B$, and if $h=4$ it is obtained from $B(k+1)$ by removing one vertex from each
+path coming from a perfect matching of $B$.
+\end{itemize}
+Belardo~\cite[pp.~99 and~103]{Be19} reports that the minimizers for $s=2$ were conjectured from minimizers computed for
+orders up to $18$, and mentions unpublished work of Cioab\u{a} and a coauthor on the case $s=2$.
+
+The orders $n=(3k+h)s$ with $k\ge0$ and $h\in\{2,3,4\}$ are exactly the multiples of $s$ that are at least $2s$. Our
+main theorem determines the minimum and all minimizers at these orders, with no assumption on the path lengths, and
+gives a lower bound for every $n\ge2s$. When $s$ does not divide $n$ the bound is strict. For even $s$ and $n$ an odd
+multiple of $s/2$, \cref{thm:half} determines the minimum and the minimizers among the graphs in which every
+branch vertex of the core has degree $3$, and over all of $\G(n,s)$ when $s\le6$. For $s=2$ these are the graphs of odd order, the part of
+the case $s=2$ that~\cite[p.~103]{Be19} describes as unfinished, and Gupta~\cite[slide~21]{Gu24} lists the
+minimizers among tricyclic graphs as an open problem; \cref{cor:tricyclic} gives them for every order. To state the
+main theorem, write
+\begin{equation}\label{eq:ar}
+n+s=3sa+r,\qquad 0\le r<3s ,
+\end{equation}
+so that $a\ge1$, and for $t>0$ let
+\begin{equation}\label{eq:Phi}
+\Phi(t)=(3s-r)\tanh\frac{at}{2}+r\tanh\frac{(a+1)t}{2}.
+\end{equation}
+By \cref{lem:tstar} below the equation $\Phi(t)=s\coth t$ has exactly one solution $t_*>0$, and the bound is
+$\lambda(n,s)=2\cosh t_*$. At the ratios $n/s\in\{2,3,4,5,8\}$ it coincides with the bound of Ben-Shimon, Eisner and
+Hoory~\cite{BEH}, and there the value of the minimum and the answer to Hong's question already follow from~\cite{BEH} once a
+graph attaining the bound is known; what is new at these ratios is the description of all minimizers. At the other
+integer ratios $n/s\ge2$ our bound is larger than theirs. For $s\le12$ and $n\le12s$ with $s\nmid n$ we computed
+both bounds. When $n<5s$ they agree to $10^{-15}$, and since by~\cite{BEH} no graph attains their bound at these
+orders, \cref{thm:main} adds nothing to~\cite{BEH} there; when $n>5s$ ours is larger (\cref{sec:beh}).
+
+Simi\'c's method, which Belardo records in~\cite[pp.~99--101]{Be19}, writes the index of a graph made of internal
+paths as $2\cosh t$ with $t>0$, solves the eigenvalue equations of the Perron vector along each path, and sums them at
+the vertices of degree at least three. For such a graph with $q$ internal paths of lengths $\ell_1,\dots,\ell_q$ and
+cyclomatic number $s+1$ this gives~\cite[eq.~(2)]{Be19}
+\begin{equation}\label{eq:simic}
+\sum_{i=1}^q\tanh\frac{\ell_it}{2}=s\coth t+\varepsilon,\qquad\varepsilon=\sum_{i=1}^q\frac{w_i}{\sinh(\ell_it)},\quad
+w_i=\frac12\Bigl(\frac{\alpha_i}{\beta_i}+\frac{\beta_i}{\alpha_i}\Bigr)-1\ge0,
+\end{equation}
+where $\alpha_i$ and $\beta_i$ are the entries of the Perron vector at the two ends of the $i$-th path. Belardo notes
+that the left-hand side is largest, and $\varepsilon$ vanishes, when all $\ell_i$ are equal~\cite[p.~101]{Be19}. In a graph
+of $\G(n,s)$ the number of internal paths, their total length and their individual lengths are not known, and
+Conjecture~9 assumes that the lengths differ by at most one. The step that removes this assumption is the inequality
+\begin{equation}\label{eq:keyineq}
+\sum_{i=1}^q\tanh\frac{\ell_it}{2}\le(3s-r)\tanh\frac{at}{2}+r\tanh\frac{(a+1)t}{2}=\Phi(t)\qquad(t>0),
+\end{equation}
+valid for all positive integers $\ell_1,\dots,\ell_q$ with $1\le q\le3s$ and $\sum_i\ell_i\le n+s$, with equality only
+when $q=3s$, $\sum_i\ell_i=n+s$ and every $\ell_i$ is $a$ or $a+1$ (\cref{lem:lengths}). It follows from the strict
+concavity and strict subadditivity of $x\mapsto\tanh(xt/2)$. Applied to the core of $G$, the subgraph left after deleting vertices of degree one repeatedly
+(\cref{sec:core}), it gives together with $\varepsilon\ge0$ the bound $\rho(G)\ge\lambda(n,s)$ at once (\cref{rem:simic}). For the equality cases the Perron
+vector is replaced by a test vector, equal to $1$ at the vertices of degree at least three and to
+$\cosh((\ell/2-\nu)t)/\cosh(\ell t/2)$ at the $\nu$-th vertex of an internal path of length $\ell$. Its quadratic form
+depends only on the lengths (\cref{lem:form}), and the eigenvalue equations at the vertices of degree three force each
+of them to be an end of exactly $r/s$ paths of length $a+1$.
+
+\subsection{The main theorem}\label{sec:mainresult}
+
+\begin{definition}\label{def:balanced}
+Let $s\ge1$ and $n\ge2s$, and let $a$ and $r$ be as in \eqref{eq:ar}. Let $B$ be a connected cubic multigraph on $2s$
+vertices; loops and parallel edges are allowed, a loop adds two to the degree of its vertex, and $B$ has $3s$ edges. A
+\emph{length function} is a map $L\colon E(B)\to\{a,a+1\}$ taking the value $a+1$ on exactly $r$ edges; these edges are
+called \emph{long} and the others \emph{short}. It defines the multigraph $B_L$ obtained by replacing every edge $vw$ of
+$B$ by a path from $v$ to $w$ with $L(vw)$ edges, and every loop $e$ at $v$ by a cycle through $v$ with $L(e)$ edges,
+all new vertices being distinct. It has $2s+\sum_e(L(e)-1)=n$ vertices and $n+s$ edges. It is a simple graph if and
+only if every loop of $B$ has length at least $3$ and at most one edge in each class of parallel edges of $B$ has
+length $1$. We say that $L$ is \emph{$j$-balanced} if every vertex of $B$ is an end of exactly $j$ long edges, a loop
+being counted twice. Summing over the vertices of $B$ gives $2sj=2r$, so a $j$-balanced length function exists only if
+$j=r/s$.
+\end{definition}
+
+\begin{lemma}\label{lem:tstar}
+Let $s\ge1$ and $n\ge2s$, and let $a$ and $r$ be as in \eqref{eq:ar}. The equation $\Phi(t)=s\coth t$ has exactly one solution $t_*>0$, and $\Phi(t)-s\coth t$ is strictly increasing on
+$(0,\infty)$.
+\end{lemma}
+
+\Cref{lem:tstar} is proved in \cref{sec:test}. Since $a$ and $r/s$ depend only on $n/s$, so does
+$\lambda(n,s)=2\cosh t_*$.
+
+\begin{theorem}\label{thm:main}
+Let $s\ge1$ and $n\ge\max(2s,4)$, and define $a$, $r$ and $t_*$ by \eqref{eq:ar} and \cref{lem:tstar}. Every
+$G\in\G(n,s)$ satisfies
+\[
+\rho(G)\ge\lambda(n,s)=2\cosh t_* .
+\]
+Equality holds if and only if $s$ divides $n$ and $G$ is isomorphic to a simple graph $B_L$, where $B$ is a connected
+cubic multigraph on $2s$ vertices and $L$ is an $(r/s)$-balanced length function. If $s$ divides $n$, such a graph
+exists, so $\lambda(n,s)$ is the minimum of the index on $\G(n,s)$ and the minimizers are exactly these graphs. If $s$
+does not divide $n$, every $G\in\G(n,s)$ satisfies $\rho(G)>\lambda(n,s)$.
+\end{theorem}
+
+Write a multiple $n\ge2s$ of $s$ as $n=(3k+h)s$ with $k\ge0$ and $h\in\{2,3,4\}$. Then $n+s=3s(k+1)+(h-2)s$, so
+$a=k+1$ and $r/s=h-2$. In a $1$-balanced length function every vertex of $B$ lies on exactly one long edge and no loop
+is long, so the long edges form a perfect matching of $B$; in a $2$-balanced one the short edges form a perfect matching
+in the same way. Conversely each such choice is balanced. This gives the following.
+
+\begin{corollary}\label{cor:belardo}
+Let $s\ge1$, $k\ge0$, $h\in\{2,3,4\}$ and $n=(3k+h)s\ge4$. Let $B$ run over the connected cubic multigraphs on $2s$
+vertices and $M$ over the perfect matchings of $B$. The minimizers in $\G(n,s)$ are exactly the simple
+graphs of the following form:
+\begin{enumerate}[label=(\roman*)]
+\item if $h=2$, the graph $B(k)$;
+\item if $h=3$, the graph obtained from $B(k)$ by inserting one vertex into each path coming from an edge of $M$;
+\item if $h=4$, the graph obtained from $B(k+1)$ by removing one vertex from each path coming from an edge of $M$.
+\end{enumerate}
+In particular the internal paths of every minimizer have lengths differing by at most one, and if $n>2s$ every
+minimizer has maximum degree $3$ and minimum degree $2$.
+\end{corollary}
+
+Part (i) is Theorem~7 of~\cite{Be19}, and parts (ii) and (iii) are Conjecture~9 there, without its assumption on the
+path lengths. The last sentence is Conjecture~6 of~\cite{Be19} at these orders, and for the multiples $n>2s$ of $s$ it is
+Corollary~8 of~\cite{Be19} (\cref{rem:cor8}). For $s=1$ the multigraph $B$ is either the theta
+multigraph (three parallel edges) or the dumbbell multigraph (two loops joined by an edge), and \cref{thm:main} returns
+Simi\'c's description. With $\mu=\lceil n/3\rceil$, the minimizers are $\theta(\mu,\mu,\mu)$ and $D(\mu,\mu,\mu)$ for
+$n\equiv2\pmod 3$, $\theta(\mu,\mu,\mu+1)$ and $D(\mu,\mu+1,\mu)$ for $n\equiv0\pmod3$, and $\theta(\mu,\mu,\mu-1)$ and
+$D(\mu,\mu-1,\mu)$ for $n\equiv1\pmod3$. The dumbbell is present only when its cycles have length at least $3$, that
+is, for $n\ge7$.
+
+\subsection{Comparison with the bound of Ben-Shimon, Eisner and Hoory}\label{sec:beh}
+
+Let $\mathcal M_{n,e}$ be the set of nonnegative symmetric $n\times n$ matrices with entry sum $2e$ and integral row sums. The adjacency matrix of a graph
+with $n$ vertices and $e$ edges lies in $\mathcal M_{n,e}$, so its index is at least the smallest spectral radius
+$\rho(\mathcal M_{n,e})$ over this set~\cite{BEH}. By~\cite[Theorem~1.5]{BEH} a graph whose index equals
+$\rho(\mathcal M_{n,e})$ satisfies $\Delta(G)-\delta(G)\le1$. By the Note after~\cite[Theorem~1.7]{BEH}, for average
+degree between $2$ and $3$ such a graph exists only when the average degree is $2\frac14$, $2\frac25$, $2\frac12$,
+$2\frac23$ or $3$, that is, when $n/s\in\{8,5,4,3,2\}$. At these five ratios $\rho(\mathcal M_{n,n+s})$ coincides with
+$\lambda(n,s)$, which equals $(1+\sqrt{13})/2$, $\sqrt6$, $(1+\sqrt{17})/2$, $1+\sqrt3$ and $3$ respectively. Since
+the graphs of \cref{thm:main} attain $\lambda(n,s)$, at these ratios the value of the minimum and the property
+$\Delta(G)-\delta(G)\le1$ of every minimizer follow from~\cite{BEH}.
+
+The graphs constructed in~\cite[Theorem~1.7]{BEH}
+attain the bound for infinitely many orders but need not be connected; \cref{thm:main} gives connected graphs attaining
+it for every such order and describes all minimizers. At every other integer ratio $n/s\ge2$ the bound of~\cite{BEH} is not attained, so by \cref{thm:main} it is
+smaller than $\lambda(n,s)$. At $n/s=6$, for instance, it is $2.38600\dots$ while $\lambda(n,s)=2.39138\dots$. So for
+$n/s\in\{6,7\}$ and $n/s\ge9$ the minimum and the minimizers are not given by~\cite{BEH}.
+
+When $s$ does not divide $n$ we computed $\rho(\mathcal M_{n,n+s})$ in closed form from~\cite[Theorems~1.4
+and~1.5]{BEH}; the formula is in the script of the data section. For $s\le12$ and $2s\le n\le12s$ with $s\nmid n$, it agrees with $\lambda(n,s)$ to $10^{-15}$
+when $n<5s$, and when $n>5s$ it is smaller than $\lambda(n,s)$ by at least $3.5\times10^{-4}$. At these orders with
+$n<5s$ the inequality $\rho(G)\ge\lambda(n,s)$ therefore agrees with the bound of~\cite{BEH} to within $10^{-15}$.
+That no graph attains it is part of \cref{thm:main}; for the bound of~\cite{BEH} it is the Note after~\cite[Theorem~1.7]{BEH}.
+
+\subsection{Odd multiples of \texorpdfstring{$s/2$}{s/2}}\label{sec:halfresult}
+
+Let $s$ be even. When $n\ge2s$ is an odd multiple of $s/2$, \eqref{eq:ar} gives $r=(j+\frac12)s$ with $j\in\{0,1,2\}$,
+so that $n/s=3a+j-\frac12$; these are the orders with $n/s\in\{\frac52,\frac72,\frac92,\dots\}$. No length function is
+balanced at these orders, and the minimizers turn out to be the following graphs.
+
+\begin{definition}\label{def:half}
+Let $s\ge2$ be even, let $n\ge2s$ be an odd multiple of $s/2$, and let $a$ and $j$ be as above. Let $B$ be a connected
+cubic multigraph on $2s$ vertices and $L$ a length function on $B$ (\cref{def:balanced}). We call $L$ \emph{split} if
+the vertex set of $B$ is the union of two disjoint sets $X$ and $Y$ of $s$ vertices each such that
+\begin{enumerate}[label=(\roman*)]
+\item the edges of $B$ with both ends in $X$ are short and form a perfect matching of $X$, and the edges with both ends
+in $Y$ are long and form a perfect matching of $Y$;
+\item every vertex of $B$ is an end of exactly two edges joining $X$ to $Y$, and exactly $j$ of these two are long.
+\end{enumerate}
+\end{definition}
+
+A split length function has $s/2+sj=r$ long edges, as it must, and $B$ has no loop. Split length functions exist. Take
+$X=\{x_1,\dots,x_s\}$ and $Y=\{y_1,\dots,y_s\}$, the matchings $x_{2i-1}x_{2i}$ and $y_{2i-1}y_{2i}$ for $1\le i\le s/2$,
+and the cycle $x_1y_1x_2y_2\cdots x_sy_sx_1$; for $s=2$ this is $K_4$. The multigraph $B$ is a simple connected cubic
+graph. Make the cycle edges short if $j=0$ and long if $j=2$, and if $j=1$ make the edges $x_iy_i$ long and the edges
+$y_ix_{i+1}$ (indices modulo $s$) short. In each case $L$ is split and $B_L$ is simple.
+
+The value of the minimum is given by a $2\times2$ matrix. For $t>0$ and integers $l\ge0$ put $u_l=\tanh(lt/2)$, so
+$u_0=0$, and for $l\ge1$ put $\sigma_l=1/\sinh(lt)$. Let
+\[
+\eta=u_{a+1}-u_a,\qquad b=\coth t-3u_a-\bigl(j+\tfrac12\bigr)\eta,\qquad \omega=(2-j)\sigma_a+j\sigma_{a+1},
+\]
+all functions of $t$, and
+\begin{equation}\label{eq:Z}
+Z(t)=\begin{pmatrix} b+\eta/2-\omega&\omega\\ \omega&b-\eta/2-\omega\end{pmatrix}.
+\end{equation}
+By \cref{lem:tau} below there is exactly one $\tau>0$ at which the larger eigenvalue of $Z(\tau)$ is $0$. Put
+$\kappa(n,s)=2\cosh\tau$; like $\lambda(n,s)$, it depends only on $n/s$.
+
+\begin{theorem}\label{thm:half}
+Let $s\ge2$ be even and let $n\ge2s$ be an odd multiple of $s/2$.
+\begin{enumerate}[label=(\alph*)]
+\item Every simple graph $B_L$ with $L$ split has index $\kappa(n,s)$.
+\item If $G\in\G(n,s)$ and every branch vertex of the core of $G$ (\cref{sec:core}) has degree $3$, then
+$\rho(G)\ge\kappa(n,s)$, with equality if and only if $G$ is isomorphic to a simple graph $B_L$ with $L$ split.
+\item If $s\in\{2,4,6\}$, then $\rho(G)>\kappa(n,s)$ for every other $G\in\G(n,s)$. Hence $\kappa(n,s)$ is the minimum
+of the index on $\G(n,s)$, and the minimizers are exactly the simple graphs $B_L$ with $L$ split.
+\end{enumerate}
+\end{theorem}
+
+Since $s$ does not divide $n$, \cref{thm:main} gives $\kappa(n,s)>\lambda(n,s)$. For $s=2$ there are two cubic
+multigraphs with a split length function: $K_4$, and the multigraph $H$ on $x_1,x_2,y_1,y_2$ with the edges
+$x_1x_2$ and $y_1y_2$ and two parallel edges between $x_1$ and $y_1$ and between $x_2$ and $y_2$. Together with
+\cref{cor:belardo} this gives the following.
+
+\begin{corollary}\label{cor:tricyclic}
+For every $n\ge4$ the minimizers in $\G(n,2)$ are determined. If $n$ is even they are given by \cref{cor:belardo}. If
+$n\ge5$ is odd, write $n+2=6a+r$ with $r\in\{1,3,5\}$, and in $K_4$ and in $H$ give length $a$ to the edge $x_1x_2$
+and length $a+1$ to $y_1y_2$. Give the other four edges length $a$ if $r=1$ and length $a+1$ if $r=5$. If $r=3$ give
+length $a+1$ to $x_1y_1$ and $x_2y_2$ in $K_4$ and to one edge of each parallel pair in $H$, and length $a$ to the other
+two edges. The minimizers are the two resulting graphs, except for $n=5$, where the graph from $H$ is not simple and the
+only minimizer is $K_4$ with one edge subdivided.
+\end{corollary}
+
+This answers, for tricyclic graphs, the question of Gupta~\cite[slide~21]{Gu24} on the spectral minimizers of
+tricyclic and $k$-cyclic graphs. In every minimizer of \cref{thm:half} the lengths of the internal paths differ by at
+most one, the maximum degree is $3$ and the minimum degree is $2$, so for $s\in\{2,4,6\}$ Conjecture~6 of~\cite{Be19}
+holds at these orders and Hong's question has an affirmative answer there.
+
+Rowlinson and Yang~\cite{RY93} determined, for every order $n$, the graphs of smallest index among the Hamiltonian
+graphs in $\G(n,2)$, the tricyclic Hamiltonian graphs. Such a graph is a cycle with two chords, and each chord is an
+internal path of length $1$. By \cref{cor:belardo,cor:tricyclic} every internal path of a minimizer in $\G(n,2)$ with
+$n\ge10$ has length at least $a\ge2$, so for these orders no minimizer is Hamiltonian.
+
+\begin{remark}\label{rem:cor8}
+In~\cite{Be19}, Corollary~8 states $\Delta=3$ and $\delta=2$ for every minimizer with $n\ge2s$; it is stated after
+Theorem~7 there, with a reference to the lemma of Hoffman and Smith and without a proof. At $n=2s$ the minimizers are
+the connected cubic graphs, so $\delta=3$ there. A graph with $\Delta=3$ and $\delta=2$
+is its own core, and all its branch vertices have degree $3$. So, if
+Corollary~8 of~\cite{Be19} holds, \cref{thm:half}(b) determines the minimum and the minimizers for every even $s$. Conversely,
+\cref{cor:belardo} and \cref{thm:half} prove Corollary~8 of~\cite{Be19} for $s\in\{2,4,6\}$ at every order $n>2s$ that is a multiple
+of $s/2$; for $s=2$ this is every $n\ge5$.
+\end{remark}
+
+\section{The core and its internal paths}\label{sec:core}
+
+Let $G\in\G(n,s)$ with $s\ge1$. Deleting a vertex of degree one together with its edge keeps the graph connected and
+does not change the number of edges minus the number of vertices. Repeat this until no vertex of degree one is left,
+and call the result $C$, the \emph{core} of $G$. The core is an induced subgraph of $G$, it is connected, and it has
+$|E(C)|-|V(C)|=s\ge1$, so it is not a single vertex, and every vertex $v$ of $C$ has degree $d_C(v)\ge2$ in $C$. A connected
+graph with all degrees equal to two is a cycle, for which the number of edges equals the number of vertices; hence $C$
+has a vertex of degree at least three. Call such vertices the \emph{branch vertices} of $C$, and let $p\ge1$ be their
+number.
+
+\begin{lemma}\label{lem:core}
+With this notation:
+\begin{enumerate}[label=(\alph*)]
+\item $\sum_{v\in V(C)}(d_C(v)-2)=2s$, so $p\le2s$, with equality if and only if every branch vertex has degree $3$;
+\item the edges of $C$ are partitioned into $q=p+s$ internal paths $P_1,\dots,P_q$ of $C$, each joining two branch
+vertices or forming a cycle through one branch vertex, and every vertex of degree two lies in the interior of exactly
+one of them;
+\item the lengths $\ell_i$ of the $P_i$ are positive integers with $\sum_i\ell_i=|E(C)|\le n+s$, with equality if and only
+if $C=G$;
+\item $q\le3s$, with equality if and only if every branch vertex has degree $3$; in that case the multigraph obtained
+from $C$ by replacing each $P_i$ with an edge (a loop when $P_i$ is a cycle) is a connected cubic multigraph on $2s$
+vertices.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The sum of the degrees is $2|E(C)|$, so $\sum_v(d_C(v)-2)=2(|E(C)|-|V(C)|)=2s$. Vertices of degree two contribute
+nothing and branch vertices contribute at least one each.
+
+(b) Start at a branch vertex $v$ and an edge $vw$, and continue through vertices of degree two until a branch vertex is
+reached. This must happen, since otherwise the walk would close up into a cycle of vertices of degree two, which would
+be a component of $C$. Every edge lies on exactly one such path, and every vertex of degree two lies inside the path
+through its two edges. Replacing each path by a single edge removes as many vertices as edges, so the resulting
+multigraph has $p$ vertices and $q$ edges with $q-p=|E(C)|-|V(C)|=s$.
+
+(c) The lengths add up to the number of edges of $C$, which is $n+s$ minus the number of deleted vertices.
+
+(d) By (a), $q=p+s\le3s$, with equality if and only if $p=2s$. The degree of a branch vertex in the multigraph of (b),
+with loops counted twice, equals its degree in $C$, and the multigraph is connected because $C$ is.
+\end{proof}
+
+\section{The test vector}\label{sec:test}
+
+Keep the notation of \cref{sec:core}, and for an internal path $P_i$ and a branch vertex $v$ let $m_i(v)\in\{0,1,2\}$ be
+the number of ends of $P_i$ at $v$. For $t>0$ define $f=f_t\colon V(C)\to(0,1]$ as follows: $f(v)=1$ at every branch
+vertex, and if $P_i=x_0x_1\cdots x_\ell$ then
+\begin{equation}\label{eq:f}
+f(x_\nu)=\frac{\cosh\bigl((\ell/2-\nu)t\bigr)}{\cosh(\ell t/2)},\qquad 0\le \nu\le\ell .
+\end{equation}
+This is consistent at the ends, where the value is $1$, and by \cref{lem:core}(b) every other vertex lies on exactly one
+path. The value is symmetric under $\nu\mapsto\ell-\nu$, so the direction in which a path is read does not matter. Let
+$A_C$ and $A_G$ be the adjacency matrices of $C$ and $G$.
+
+\begin{lemma}\label{lem:form}
+For every $t>0$:
+\begin{enumerate}[label=(\alph*)]
+\item $(A_Cf)(x)=2\cosh(t)f(x)$ at every vertex $x$ of degree two;
+\item at every branch vertex $v$,
+\[
+(A_Cf)(v)-2\cosh(t)f(v)=(d_C(v)-2)\cosh t-\sinh t\sum_{i=1}^q m_i(v)\tanh\frac{\ell_it}{2};
+\]
+\item
+\begin{equation}\label{eq:form}
+\langle f,A_Cf\rangle-2\cosh(t)\langle f,f\rangle=2s\cosh t-2\sinh t\sum_{i=1}^q\tanh\frac{\ell_it}{2}.
+\end{equation}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) An interior vertex $x_\nu$ of $P_i$ is adjacent to exactly $x_{\nu-1}$ and $x_{\nu+1}$, and
+$\cosh(y+t)+\cosh(y-t)=2\cosh t\cosh y$ with $y=(\ell/2-\nu)t$.
+
+(b) This is the computation of~\cite[pp.~99--100]{Be19} with the value $1$ at both ends of every path. The neighbours
+of $v$ in $C$ correspond to the ends of internal paths at $v$: the end $x_0=v$ of $P_i$ gives the
+neighbour $x_1$ and the end $x_\ell=v$ gives $x_{\ell-1}$. These neighbours are distinct because $C$ is simple, and
+there are $d_C(v)$ of them. By \eqref{eq:f} and the addition formula,
+\[
+f(x_1)=f(x_{\ell-1})=\frac{\cosh(\ell t/2-t)}{\cosh(\ell t/2)}=\cosh t-\sinh t\tanh\frac{\ell t}{2}.
+\]
+When $\ell=1$ the neighbour is a branch vertex with value $1$, and the right-hand side is also $1$ because
+$\tanh(t/2)=(\cosh t-1)/\sinh t$. Summing over the $d_C(v)$ ends at $v$ and subtracting $2\cosh(t)f(v)=2\cosh t$ gives
+(b).
+
+(c) Since $\langle f,(A_C-2\cosh t)f\rangle=\sum_xf(x)\,\bigl((A_C-2\cosh t)f\bigr)(x)$, by (a) only branch vertices
+contribute, and there $f=1$. Sum (b) over the branch vertices and use $\sum_v(d_C(v)-2)=2s$ from \cref{lem:core}(a) and
+$\sum_vm_i(v)=2$ for each $i$.
+\end{proof}
+
+\begin{lemma}\label{lem:lengths}
+Let $s\ge1$, let $N\ge3s$ be an integer with $N=3sa+r$ and $0\le r<3s$, and let $\ell_1,\dots,\ell_q$ be positive
+integers with $1\le q\le3s$ and $\sum_i\ell_i\le N$. Then for every $t>0$
+\[
+\sum_{i=1}^q\tanh\frac{\ell_it}{2}\le(3s-r)\tanh\frac{at}{2}+r\tanh\frac{(a+1)t}{2},
+\]
+with equality if and only if $q=3s$, $\sum_i\ell_i=N$, and every $\ell_i$ equals $a$ or $a+1$.
+\end{lemma}
+
+\begin{proof}
+Fix $t>0$ and put $g(x)=\tanh(xt/2)$ for $x>0$. The function $g$ is positive, strictly increasing and strictly concave,
+and $g(x)+g(y)>g(x+y)$ for $x,y>0$ because $\tanh(u+v)=(\tanh u+\tanh v)/(1+\tanh u\tanh v)$. Apply the following moves
+to the list $(\ell_i)$, each of which strictly increases $\sum_ig(\ell_i)$ and keeps the entries positive integers.
+\begin{enumerate}[label=(\arabic*)]
+\item If $\sum_i\ell_i<N$, add $N-\sum_i\ell_i$ to one entry.
+\item While there are fewer than $3s$ entries, replace an entry $\ell\ge2$ by the two entries $1$ and $\ell-1$. Such an
+entry exists: otherwise the sum would be the number of entries, which is less than $3s\le N$.
+\item While two entries satisfy $\ell_i\ge\ell_j+2$, replace them by $\ell_i-1$ and $\ell_j+1$. Since
+$\ell_j+1\le\ell_i-1$ and $g$ is strictly concave, $g(\ell_j+1)-g(\ell_j)>g(\ell_i)-g(\ell_i-1)$. The sum of the squares
+of the entries decreases by $2(\ell_i-\ell_j)-2>0$, so this step ends.
+\end{enumerate}
+At the end there are $3s$ positive integers with sum $N$ that pairwise differ by at most one; they are $r$ copies of
+$a+1$ and $3s-r$ copies of $a$, and the sum of $g$ over them is the right-hand side. Since every move is strict,
+equality holds exactly when no move applies to the original list.
+\end{proof}
+
+\begin{proof}[Proof of \cref{lem:tstar}]
+On $(0,\infty)$ the function $\Phi$ is continuous and strictly increasing with limits $0$ at $0$ and $3s$ at
+infinity, while $s\coth t$ is continuous and strictly decreasing with limits $+\infty$ and $s$. Hence
+$\Phi(t)-s\coth t$ increases strictly from $-\infty$ to $2s$ and has exactly one zero.
+\end{proof}
+
+\begin{remark}\label{rem:simic}
+\Cref{lem:lengths} also completes Simi\'c's method for the bound. Write $\rho(C)=2\cosh t$ with $t>0$; here $\rho(C)>2$
+because the index is at least the average degree $2|E(C)|/|V(C)|$. The core $C$ consists of internal paths joined at
+their ends, and for its Perron vector \eqref{eq:simic} holds with $\varepsilon\ge0$. By \cref{lem:core}(c),(d) we have
+$q\le3s$ and $\sum_i\ell_i\le n+s$, so \cref{lem:lengths} with $N=n+s$ gives $\Phi(t)\ge s\coth t$. Since
+$\Phi(t)-s\coth t$ is strictly increasing (\cref{lem:tstar}), $t\ge t_*$, and so $\rho(G)\ge\rho(C)\ge\lambda(n,s)$.
+The test vector of \cref{sec:test} gives the same bound without the Perron vector, and it also yields the equality
+cases.
+\end{remark}
+
+\section{Proof of the main theorem}\label{sec:proof}
+
+Let $G\in\G(n,s)$, let $C$, $P_i$ and $\ell_i$ be as in \cref{sec:core}, and let $f=f_{t_*}$ be the vector of
+\cref{sec:test}, extended by $0$ to the vertices of $G$ outside $C$. Since $C$ is an induced subgraph of $G$, we have
+$\langle f,A_Gf\rangle=\langle f,A_Cf\rangle$. By \cref{lem:core}, $q\le3s$ and $\sum_i\ell_i\le n+s$, and
+$n+s\ge3s$, so \cref{lem:lengths} applies with $N=n+s$. Together with \eqref{eq:form} and the definition of $t_*$,
+\begin{equation}\label{eq:chain}
+\langle f,A_Gf\rangle-2\cosh t_*\langle f,f\rangle\ \ge\ 2s\cosh t_*-2\sinh t_*\,\Phi(t_*)=2s\cosh t_*-2s\sinh t_*\coth t_*=0 .
+\end{equation}
+As $f\ne0$, the Rayleigh principle gives $\rho(G)\ge\langle f,A_Gf\rangle/\langle f,f\rangle\ge2\cosh t_*$.
+
+Suppose that $\rho(G)=2\cosh t_*$. Then equality holds in \eqref{eq:chain}, so by \cref{lem:lengths} we have
+$q=3s$, $\sum_i\ell_i=n+s$ and $\ell_i\in\{a,a+1\}$ for all $i$. By \cref{lem:core}(c),(d), $C=G$ and $G=B_L$ for the
+connected cubic multigraph $B$ of \cref{lem:core}(d) and the length function $L$ given by the $\ell_i$, which takes the
+value $a+1$ exactly $r$ times because $\sum_i\ell_i=3sa+r$. Moreover $f$ attains the maximum of the Rayleigh
+quotient of the symmetric matrix $A_G$, so $A_Gf=\rho(G)f$. At a vertex $v$ of $B$ that is an end of $j_v$ long edges
+(loops counted twice), \cref{lem:form}(b) with $d_C(v)=3$ then gives
+\begin{equation}\label{eq:vertex}
+(3-j_v)\tanh\frac{at_*}{2}+j_v\tanh\frac{(a+1)t_*}{2}=\coth t_* .
+\end{equation}
+The left-hand side is strictly increasing in $j_v$, so $j_v$ is the same number $j$ at every vertex, and
+$L$ is $j$-balanced. By \cref{def:balanced}, $j=r/s$; in particular $s$ divides $r=n+s-3sa$, hence $s$ divides $n$.
+
+Conversely, let $s$ divide $n$ and let $G=B_L$ be simple with $L$ an $(r/s)$-balanced length function. Then $G$ is
+its own core, its branch vertices are the vertices of $B$, which have degree $3$, and its internal paths are the paths
+replacing the edges of $B$. At every branch vertex the left-hand side of \eqref{eq:vertex} with $j_v=r/s$ equals
+$\Phi(t_*)/s=\coth t_*$, so by \cref{lem:form}(a),(b) we have $A_Gf=2\cosh(t_*)f$. The vector $f$ has positive
+entries and $G$ is connected, so by the Perron--Frobenius theorem $2\cosh t_*$ is the index of $G$.
+
+It remains to show that a simple $B_L$ with an $(r/s)$-balanced $L$ exists when $s$ divides $n$; then
+$j=r/s\in\{0,1,2\}$. For $s\ge2$ let $B$ be the M\"obius ladder: the cycle $v_0v_1\cdots v_{2s-1}v_0$ together with the
+edges $v_iv_{i+s}$ for $0\le i<s$ (for $s=2$ this is $K_4$). It is a connected simple cubic graph, the edges $v_iv_{i+s}$
+form a perfect matching $M_0$, and the cycle edges cover every vertex twice. Give length $a+1$ to no edge if $j=0$, to the
+edges of $M_0$ if $j=1$, and to the cycle edges if $j=2$; in each case exactly $js=r$ edges are long and $L$ is
+$j$-balanced, and $B_L$ is simple because $B$ is. For $s=1$ let $B$ be the theta multigraph, two vertices joined by
+three parallel edges; every length function on it is balanced. Here $n\ge4$, so $n+1\ge5$. If $a\ge2$ all three paths
+have length at least $2$ and $B_L$ is simple. If $a=1$ then $n+1=3+r$ with $r\le2$, so $n=4$, $r=2$, the lengths are
+$1,2,2$, and $B_L$ is $K_4$ minus an edge.
+
+Finally, if $s$ does not divide $n$, no $(r/s)$-balanced length function exists, so equality is impossible and
+$\rho(G)>2\cosh t_*$. \qed
+
+\section{Proof of \texorpdfstring{\cref{thm:half}}{Theorem 6}}\label{sec:halfproof}
+
+Throughout this section $s\ge2$ is even, $n\ge2s$ is an odd multiple of $s/2$, and $a$, $j$, $r=(j+\frac12)s$ are as
+in \cref{sec:halfresult}. We write $u_l$, $\sigma_l$, $\eta$, $b$, $\omega$ and $Z(t)$ as there, and in addition
+\[
+\eta_l=u_{l+1}-u_l\quad(l\ge0),\qquad \gamma_l=\frac{\sinh t}{\sinh(lt)\sinh((l+1)t)}\quad(l\ge1),\qquad
+\psi=\frac t2,\qquad \Psi=a\psi,
+\]
+so that $\eta=\eta_a$. From $\tanh y=(\cosh 2y-1)/\sinh 2y$ we get $u_l+\sigma_l=\coth(lt)$ for $l\ge1$, and
+\begin{equation}\label{eq:etal}
+\eta_l=\frac{\sinh\psi}{\cosh(l\psi)\cosh((l+1)\psi)}\qquad(l\ge0).
+\end{equation}
+In particular $\eta_l$ is positive and strictly decreasing in $l$, and $\sigma_l$ is strictly decreasing in $l$.
+
+\subsection{The quadratic form}
+
+Let $B$ be a multigraph with vertex degrees $d_v$, possibly with loops and parallel edges, let $\ell\colon
+E(B)\to\{1,2,\dots\}$, and let $x\colon V(B)\to\mathbb R$. For $t>0$ put
+\begin{equation}\label{eq:Q}
+\begin{gathered}
+Q_t(B,\ell,x)=\sum_{v\in V(B)}(d_v-2)\coth(t)\,x_v^2-\sum_{e\in E(B)}T_{\ell(e)}(x_{e^-},x_{e^+}),\\
+T_l(x,y)=u_l(x^2+y^2)+\sigma_l(x-y)^2,
+\end{gathered}
+\end{equation}
+where $e^-$ and $e^+$ are the ends of $e$ (equal for a loop). This is a formal expression in $\ell$ and $x$; it is
+related to the index only through the following lemma.
+
+\begin{lemma}\label{lem:Q}
+Let $G\in\G(n,s)$ with core $C$, let $B$ be the multigraph of branch vertices and internal paths of $C$
+(\cref{lem:core}(b)), and let $\ell(e)$ be the length of the internal path $P_e$ corresponding to $e\in E(B)$. For $t>0$
+and $x\colon V(B)\to(0,\infty)$ define $f=f_{t,x}\colon V(G)\to[0,\infty)$ by $f=0$ outside $C$, $f(v)=x_v$ at the branch
+vertices, and, on $P_e=z_0z_1\cdots z_l$, where $l=\ell(e)$, $z_0=e^-$ and $z_l=e^+$,
+\[
+f(z_i)=\frac{x_{e^-}\sinh((l-i)t)+x_{e^+}\sinh(it)}{\sinh(lt)},\qquad 0\le i\le l .
+\]
+Then $f$ is positive on $C$, $(A_Gf)(z)=2\cosh(t)f(z)$ at every vertex $z$ of $C$ of degree two,
+\[
+\bigl((A_C-2\cosh t)f\bigr)(v)=\sinh t\Bigl(\coth(t)\,(d_v-2)x_v-\sum_{e\ni v}\bigl(u_{\ell(e)}x_v+\sigma_{\ell(e)}(x_v-x_{e'})\bigr)\Bigr)
+\]
+at every branch vertex $v$, where the sum runs over the ends of edges at $v$ (a loop twice) and $e'$ denotes the other
+end, and
+\[
+\langle f,A_Gf\rangle-2\cosh(t)\langle f,f\rangle=\sinh(t)\,Q_t(B,\ell,x).
+\]
+\end{lemma}
+
+\begin{proof}
+Positivity and the equation at vertices of degree two are as in \cref{lem:form}(a), using
+$\sinh(y+t)+\sinh(y-t)=2\cosh t\sinh y$. At a branch vertex $v$ the neighbours in $C$ are the second vertices of the
+internal paths at their ends at $v$, and they are distinct because $C$ is simple. If $v=z_0$ on $P_e$, then
+\begin{align*}
+f(z_1)&=\frac{x_v\sinh((l-1)t)+x_{e'}\sinh t}{\sinh(lt)}=x_v\cosh t+\sinh t\bigl(-x_v\coth(lt)+x_{e'}\sigma_l\bigr)\\
+&=x_v\cosh t-\sinh t\bigl(u_lx_v+\sigma_l(x_v-x_{e'})\bigr),
+\end{align*}
+also when $l=1$, and the same holds at the end $z_l$ by symmetry. Summing over the $d_v$ ends at $v$ and subtracting
+$2\cosh(t)x_v$ gives the formula at $v$. For the last identity, $C$ is an induced subgraph of $G$ and $f$ vanishes off
+$C$, so the left-hand side is $\sum_vx_v\bigl((A_C-2\cosh t)f\bigr)(v)$ over branch vertices. Each end of $e$ at $v$
+contributes $-\sinh t\,x_v(u_lx_v+\sigma_l(x_v-x_{e'}))$, and the two ends of $e$ together give $-\sinh t\,T_l(x_{e^-},
+x_{e^+})$.
+\end{proof}
+
+With all $x_v=1$ the vector $f_{t,x}$ is the vector $f_t$ of \cref{sec:test}, and \cref{lem:Q} gives \eqref{eq:form} again, since
+$\sum_v(d_v-2)=2s$ and $T_l(1,1)=2u_l$.
+
+If $Q_t(B,\ell,x)\ge0$ for some positive $x$, the Rayleigh principle gives $\rho(G)\ge2\cosh t$, with strict inequality
+if $Q_t(B,\ell,x)>0$; and if $Q_t(B,\ell,x)=0$ and $\rho(G)=2\cosh t$, then $f$ attains the maximum of the Rayleigh
+quotient, so $A_Gf=\rho(G)f$, and the bracket in \cref{lem:Q} vanishes at every branch vertex.
+
+\subsection{The root \texorpdfstring{$\tau$}{tau}}
+
+\begin{lemma}\label{lem:tau}
+The larger eigenvalue $\zeta(t)=b-\omega+\sqrt{\omega^2+\eta^2/4}$ of $Z(t)$ has exactly one zero $\tau>0$. For every
+simple graph $B_L$ with $L$ split, $\rho(B_L)=2\cosh\tau$. Moreover $\sqrt2<e^\tau<(3+\sqrt5)/2$, and there is a
+unique $R$ with $Z(\tau)(R,1)^{\mathsf T}=0$; it satisfies
+\begin{equation}\label{eq:R}
+R=\frac{\omega+\eta/2-b}{\omega}>1,\qquad R-\frac1R=\frac{\eta}{\omega},\qquad 0<-b<\frac{\eta^2}{8\omega},
+\end{equation}
+where $\eta$, $b$ and $\omega$ are evaluated at $\tau$.
+\end{lemma}
+
+\begin{proof}
+Let $G_0=B_L$ be simple with $L$ split; such graphs exist by \cref{sec:halfresult}. Its core is $G_0$ itself, its
+branch vertices are the $2s$ vertices of $B$, and the internal paths are the paths replacing the edges of $B$. Give the
+vertices of $X$ the value $x$ and those of $Y$ the value $y$. A vertex of $X$ is an end of one short edge inside $X$ and
+of two edges to $Y$, $j$ of them long, so $\sum_{e\ni v}u_{\ell(e)}=3u_a+j\eta$. A vertex of $Y$ is an end of one long
+edge inside $Y$ and of two edges to $X$, $j$ of them long, so there the sum is $3u_a+(j+1)\eta$. Since
+$\coth t-3u_a-j\eta=b+\eta/2$ and $\coth t-3u_a-(j+1)\eta=b-\eta/2$, the bracket of \cref{lem:Q} is
+\[
+(b+\eta/2)x-\omega(x-y)\ \text{on }X,\qquad (b-\eta/2)y-\omega(y-x)\ \text{on }Y,
+\]
+that is, the two entries of $Z(t)(x,y)^{\mathsf T}$.
+
+The off-diagonal entry $\omega$ of $Z(t)$ is positive, so $Z(t)$ has a top eigenvector $(x,y)$ with $x,y>0$. If
+$\zeta(t)=0$, the vector $f$ of \cref{lem:Q} built from it is a positive eigenvector of $A_{G_0}$ with eigenvalue
+$2\cosh t$, so $2\cosh t=\rho(G_0)$ by the Perron--Frobenius theorem; as $\cosh$ is injective on $(0,\infty)$, $\zeta$ has
+at most one zero. Since $\zeta\ge b$ and $b\to+\infty$ as $t\to0$, while $b\to-2$, $\omega\to0$ and $\eta\to0$ as
+$t\to\infty$, the continuous function $\zeta$ has a zero $\tau$, and $\rho(G_0)=2\cosh\tau$ for every such $G_0$.
+
+The graph $G_0$ is connected, not regular, and has maximum degree $3$, so $\rho(G_0)<3$, which is
+$e^\tau<(3+\sqrt5)/2$. Normalize the top eigenvector of $Z(\tau)$ as $(R,1)$; then $R>0$, and the bracket of
+\cref{lem:Q} vanishes at every branch vertex. At a vertex of $Y$ this reads
+$\coth\tau=3u_a+(j+1)\eta-\omega(R-1)$. The second row of $Z(\tau)(R,1)^{\mathsf T}=0$ gives the formula for $R$, and
+dividing the first row by $R$ and subtracting the second gives $R-1/R=\eta/\omega>0$, so $R>1$. Hence
+$\coth\tau<3u_a+(j+1)\eta<3$, which is $e^{2\tau}>2$. Finally $\zeta(\tau)=0$ gives
+$-b=\sqrt{\omega^2+\eta^2/4}-\omega=\frac{\eta^2/4}{\sqrt{\omega^2+\eta^2/4}+\omega}$, which lies in
+$(0,\eta^2/(8\omega))$.
+\end{proof}
+
+This proves \cref{thm:half}(a). From now on $t=\tau$, and $R$ is as in \eqref{eq:R}.
+
+\subsection{Cubic cores with lengths \texorpdfstring{$a$}{a} and \texorpdfstring{$a+1$}{a+1}}
+
+\begin{lemma}\label{lem:cut}
+Let $B$ be a connected cubic multigraph on $2s$ vertices and $\ell\colon E(B)\to\{a,a+1\}$ with exactly $r$ long
+edges. For $v\in V(B)$ let $k_v$ be the number of long edges at $v$, a loop counted twice. Let $X$ consist of $s$
+vertices with the smallest values of $k_v$, let $Y=V(B)\setminus X$, and put $x_v=R$ on $X$ and $x_v=1$ on $Y$. Then
+$Q_\tau(B,\ell,x)\ge0$. If equality holds and the bracket of \cref{lem:Q} vanishes at every vertex, then $\ell$ is split,
+with respect to the sets $X$ and $Y$.
+\end{lemma}
+
+\begin{proof}
+Let $K=\sum_{v\in X}k_v$. Then $K\le sj$: either every $k_v$ on $X$ is at most $j$, or some is at least $j+1$, in which
+case every $k_v$ on $Y$ is at least $j+1$, and since $\sum_vk_v=2r=(2j+1)s$ we get $K\le(2j+1)s-(j+1)s$. Put
+$\xi=\coth\tau-3u_a$. Since $\sum_{e\ni v}u_{\ell(e)}=3u_a+k_v\eta$ and an edge contributes to the second part of $T$
+only if it joins $X$ to $Y$,
+\[
+Q_\tau(B,\ell,x)=R^2(s\xi-K\eta)+s\xi-(2r-K)\eta-(R-1)^2W,
+\]
+where $W$ is the sum of $\sigma_{\ell(e)}$ over the edges $e$ joining $X$ to $Y$. A long such edge has an end in $X$ at
+which it is one of the $K$ long incidences, and a short one has an end in $Y$ at which it is one of the
+$3s-(2r-K)=(2-2j)s+K$ short incidences; so $W\le K\sigma_{a+1}+((2-2j)s+K)\sigma_a\le s\omega$, using $K\le sj$. Put
+$m=sj-K\ge0$. Using $s\xi-sj\eta=s(b+\eta/2)$ and $s\xi-(j+1)s\eta=s(b-\eta/2)$, we get
+\[
+Q_\tau(B,\ell,x)=s\,(R,1)Z(\tau)(R,1)^{\mathsf T}+m\eta(R^2-1)+(R-1)^2(s\omega-W)\ \ge\ m\eta(R^2-1)\ \ge\ 0 .
+\]
+
+Suppose that equality holds. Then $m=0$, that is $K=sj$, every long incidence at a vertex of $X$ lies on an edge to $Y$,
+and every short incidence at a vertex of $Y$ lies on an edge to $X$. At $v\in X$ with $k=k_v$ and $h_v$ short edges to
+$Y$, and at $v\in Y$ with $k=k_v$ and $g_v$ long edges to $X$, the vanishing of the bracket reads
+\begin{equation}\label{eq:XY}
+\begin{aligned}
+R(\xi-k\eta)&=(R-1)(k\sigma_{a+1}+h_v\sigma_a)&&(v\in X),\\
+3u_a+k\eta-\xi&=(R-1)\bigl((3-k)\sigma_a+g_v\sigma_{a+1}\bigr)&&(v\in Y).
+\end{aligned}
+\end{equation}
+We show that $k_v$ is constant on $X$ and on $Y$. If $j=0$, then $K=0$, so $k_v=0$ on $X$ and there are no long edges
+between $X$ and $Y$; hence $g_v=0$, and in the second equation the left side increases and the right side decreases
+with $k$. If $j=2$, then $K=2s$ forces $k_v=3$ on $Y$, so there are no short edges between $X$ and $Y$; hence $h_v=0$,
+and in the first equation the left side decreases and the right side increases with $k$. Let $j=1$, so
+$\omega=\sigma_a+\sigma_{a+1}$, and by \eqref{eq:R} $\eta R/(R-1)=\omega(R+1)$ and $\eta/(R-1)=\omega(1+1/R)$. By the
+first equation, if the values of $k$ at two vertices of $X$ differ by $d\ge1$, their values of $h_v$ differ by $d$ times
+\[
+\frac{\sigma_{a+1}+\omega(R+1)}{\sigma_a}>\frac{2\sigma_a+3\sigma_{a+1}}{\sigma_a}=2+\frac{3\sinh(a\tau)}{\sinh((a+1)\tau)}>3,
+\]
+because $\sinh((a+1)\tau)/\sinh(a\tau)=\cosh\tau+\coth(a\tau)\sinh\tau\le2\cosh\tau<3$. By the second equation, the
+same holds on $Y$ for $g_v$, with the factor $(\sigma_a+\omega(1+1/R))/\sigma_{a+1}>(2\sigma_a+\sigma_{a+1})/\sigma_{a+1}>3$. As $h_v$ and $g_v$ lie in
+$\{0,1,2,3\}$, $k_v$ is constant on $X$ and on $Y$ in every case. Since $K=sj$ and $\sum_vk_v=(2j+1)s$, it equals $j$ on
+$X$ and $j+1$ on $Y$; then \eqref{eq:XY} shows that $h_v$ and $g_v$ are constant. Counting the long edges between $X$
+and $Y$ from both sides gives $g_v=j$, and counting the short ones gives $h_v=3-(j+1)=2-j$. So every vertex is an end of
+exactly two edges between $X$ and $Y$, exactly $j$ of them long, and of exactly one edge inside its own set, which is
+therefore not a loop; on $X$ this edge is short, since every long incidence at $X$ goes to $Y$, and on $Y$ it is long,
+since every short incidence at $Y$ goes to $X$. Thus $\ell$ is split.
+\end{proof}
+
+\subsection{Cubic cores with arbitrary lengths}
+
+For $l\ge1$ and $x,y>0$ put $\Gamma_l(x,y)=T_{l+1}(x,y)-T_l(x,y)$. Writing $x^2+y^2=2xy+(x-y)^2$ and using
+$u_l+\sigma_l=\coth(lt)$,
+\begin{equation}\label{eq:Gamma}
+\Gamma_l(x,y)=2xy\,\eta_l-\gamma_l(x-y)^2 .
+\end{equation}
+So lengthening an edge from $l$ to $l+1$ lowers $Q_\tau$ by $\Gamma_l(x_{e^-},x_{e^+})$, and shortening it from $l+1$ to
+$l$ raises $Q_\tau$ by the same amount.
+
+\begin{lemma}\label{lem:Gamma}
+At $t=\tau$, for every $l\ge1$ and $x,y\in\{1,R\}$,
+\[
+2\eta_l\le\Gamma_l(x,y)\le2R^2\eta_l,
+\]
+and
+\begin{equation}\label{eq:six}
+R^2<\frac{\eta_a}{\eta_{a+1}},\qquad R^2<\frac{\eta_{a-1}}{\eta_a}\quad\text{if }a\ge2 .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:etal},
+\[
+\frac{\gamma_l}{\eta_l}=\frac{\cosh\psi}{2\sinh(l\psi)\sinh((l+1)\psi)}\le\frac{\cosh\psi}{2\sinh\psi\sinh2\psi}=\frac1{4\sinh^2\psi}.
+\]
+Also $\sinh((a+1)\tau)=2\sinh(\Psi+\psi)\cosh(\Psi+\psi)$, so
+\begin{equation}\label{eq:eta-sigma}
+\frac{\eta}{2\sigma_{a+1}}=\frac{\sinh\psi\,\sinh(\Psi+\psi)}{\cosh\Psi}<\sinh\psi\,e^{\psi}=\frac{e^\tau-1}{2}.
+\end{equation}
+By \eqref{eq:R} and $\omega\ge2\sigma_{a+1}$ we have $R-1<R-1/R=\eta/\omega\le\eta/(2\sigma_{a+1})$, and
+$8\sinh^2\psi=2(e^\tau-1)^2e^{-\tau}\ge(e^\tau-1)/2$ because $e^\tau\ge4/3$. Hence $\gamma_l(R-1)<\gamma_l\cdot8\sinh^2\psi\le2\eta_l$. Now
+$\Gamma_l(1,1)=2\eta_l$, $\Gamma_l(R,R)=2R^2\eta_l$, and
+$\Gamma_l(R,1)=2R\eta_l-\gamma_l(R-1)^2$ lies between $2R\eta_l-2\eta_l(R-1)=2\eta_l$ and $2R\eta_l$.
+
+For \eqref{eq:six}, let $V>1$. Since $R\mapsto R-1/R$ is increasing, $R^2<V$ holds if and only if
+$\eta/\omega<\sqrt V-1/\sqrt V$, and for this it suffices that $\eta/(2\sigma_{a+1})<(V-1)/\sqrt V$. For
+$V=\eta_a/\eta_{a+1}=\cosh(\Psi+2\psi)/\cosh\Psi$ we have $V-1=2\sinh\psi\sinh(\Psi+\psi)/\cosh\Psi$, so by
+\eqref{eq:eta-sigma} the quotient of the left side by the right side is $\sqrt V/2$, and $V<e^{2\psi}=e^\tau<4$. For
+$V=\eta_{a-1}/\eta_a=\cosh(\Psi+\psi)/\cosh(\Psi-\psi)$ with $a\ge2$ we have $V-1=2\sinh\Psi\sinh\psi/\cosh(\Psi-\psi)$,
+and the quotient is
+\[
+\frac{\sinh(\Psi+\psi)}{2\sinh\Psi}\cdot\frac{\sqrt{\cosh(\Psi+\psi)\cosh(\Psi-\psi)}}{\cosh\Psi}
+\le\frac{\sinh3\psi}{2\sinh2\psi}\cdot\cosh\psi=\frac{\sinh3\psi}{4\sinh\psi}=\cosh^2\psi-\frac14<1 .
+\]
+Here the first factor is $\frac12(\cosh\psi+\coth\Psi\sinh\psi)$ and $\Psi\ge2\psi$; for the second,
+$\cosh(\Psi+\psi)\cosh(\Psi-\psi)=\cosh^2\Psi+\sinh^2\psi\le\cosh^2\Psi\cosh^2\psi$; and $\cosh^2\psi=(1+\cosh\tau)/2<5/4$
+because $2\cosh\tau<3$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:half}(b)]
+Let $G\in\G(n,s)$ have core $C$ all of whose branch vertices have degree $3$. By \cref{lem:core}, $B$ is a connected
+cubic multigraph on $2s$ vertices with $3s$ edges, and the lengths $\ell(e)\ge1$ satisfy $\sum_e\ell(e)\le n+s$, with
+equality if and only if $C=G$. If $\sum_e\ell(e)<n+s$, choose $\ell'\ge\ell$ with $\sum_e\ell'(e)=n+s$; otherwise
+$\ell'=\ell$. Mark $r$ edges of largest $\ell'$ as long, and let $\ell_0$ be the length function equal to $a+1$ on the
+marked edges and $a$ on the others. Take $X$, $Y$ and $x$ for $\ell_0$ as in \cref{lem:cut}, so that
+$Q_\tau(B,\ell_0,x)\ge0$.
+
+Pass from $\ell_0$ to $\ell'$ by unit steps, pairing each unit removed from an edge with $\ell'(e)<\ell_0(e)$ with a
+unit added to an edge with $\ell'(e)>\ell_0(e)$; the totals agree, both being $n+s$. A unit removed at length $l+1\to l$
+raises $Q_\tau$ by $\Gamma_l\ge2\eta_l$, and a unit added at $l\to l+1$ lowers it by $\Gamma_l\le2R^2\eta_l$, by
+\cref{lem:Gamma}. If at least $r$ values of $\ell'$ exceed $a$, every marked edge has $\ell'\ge a+1$, so units are
+removed only at indices $l\le a-1$ and added only at indices $l\ge a$; units can be removed only if $a\ge2$, and then
+each pair raises $Q_\tau$ by at least $2\eta_{a-1}-2R^2\eta_a>0$. If fewer than $r$ values of $\ell'$ exceed $a$, every
+edge with $\ell'>a$ is marked, so units are added only at indices $l\ge a+1$ and removed only at indices $l\le a$, and
+each pair raises $Q_\tau$ by at least $2\eta_a-2R^2\eta_{a+1}>0$. Both bounds use \eqref{eq:six} and the monotonicity
+of $\eta_l$. Finally pass from $\ell'$ to $\ell$ by removing units, each of which raises $Q_\tau$ by at least
+$2\eta_l>0$.
+
+Hence $Q_\tau(B,\ell,x)\ge0$, so $\rho(G)\ge2\cosh\tau$ by \cref{lem:Q}, and $Q_\tau(B,\ell,x)>0$ unless
+$\ell=\ell'=\ell_0$, that is, unless $C=G$ and $G=B_{\ell_0}$. If $\rho(G)=2\cosh\tau$, then therefore $G=B_{\ell_0}$,
+$Q_\tau(B,\ell_0,x)=0$ and the bracket of \cref{lem:Q} vanishes at every branch vertex, so $\ell_0$ is split by
+\cref{lem:cut}. The converse is part (a).
+\end{proof}
+
+\subsection{Other cores for \texorpdfstring{$s\le6$}{s at most 6}}
+
+\begin{proof}[Proof of \cref{thm:half}(c)]
+Let $s\in\{2,4,6\}$ and let $G\in\G(n,s)$ have a core with a branch vertex of degree at least $4$. By
+\cref{lem:core}, the core has $q<3s$ internal paths of lengths $\ell_1,\dots,\ell_q$ with $\sum_i\ell_i\le n+s$. Take
+$x_v=1$ at every branch vertex in \cref{lem:Q}; then the form is $2s\coth\tau-2\sum_iu_{\ell_i}$. Let
+$S=(3s-r)u_a+ru_{a+1}$; since $sb=s\coth\tau-S$, the form equals $2sb+2(S-\sum_iu_{\ell_i})$.
+
+Append $3s-q$ entries $0$ to the list, and recall $u_0=0$. Increase entries one unit at a time until the sum is $n+s$,
+and then, while two entries differ by at least $2$, move one unit from the larger to the smaller. The sum of the squares
+of the entries decreases at each move, so this ends, at the list of $3s-r$ entries $a$ and $r$ entries $a+1$, where
+$\sum u=S$. Every step raises $\sum u$, since $\eta_l>0$ and $\eta_l$ is strictly decreasing, and at least one step is
+taken because the list contains a $0$. The last step raises $\sum u$ by at least
+\[
+m_7=\min\{\eta_a,\ \eta_{a-1}-\eta_a,\ \eta_a-\eta_{a+1}\}:
+\]
+a unit added last goes to an entry $a-1$ or $a$, gaining $\eta_{a-1}$ or $\eta_a$; a unit moved last ends at two
+entries in $\{a,a+1\}$, and it gains $\eta_{a-1}-\eta_a$, $\eta_a-\eta_{a+1}$ or their sum.
+
+We claim $m_7>-sb$. By \eqref{eq:etal} and the computation in \eqref{eq:eta-sigma}, the three quotients of
+$\eta^2/\sigma_{a+1}$ by $\eta_a$, $\eta_{a-1}-\eta_a$ and $\eta_a-\eta_{a+1}$ are
+\[
+\frac{\eta}{\sigma_{a+1}}<e^\tau-1,\qquad \frac{\sinh(\Psi+\psi)\cosh(\Psi-\psi)}{\sinh\Psi\cosh\Psi}\le2\cosh\psi,\qquad
+\frac{\cosh(\Psi+2\psi)}{\cosh\Psi}<e^{\tau}.
+\]
+For the middle one, $\sinh(\Psi+\psi)/\sinh\Psi=\cosh\psi+\coth\Psi\sinh\psi\le2\cosh\psi$ because $\Psi\ge\psi$, and
+$\cosh(\Psi-\psi)\le\cosh\Psi$. By \cref{lem:tau}, $e^\tau<(3+\sqrt5)/2<8/3$ and $(2\cosh\psi)^2=2+2\cosh\tau<5$, so each
+quotient is less than $8/3$ and $m_7>3\eta^2/(8\sigma_{a+1})$. On the other hand, by \eqref{eq:R} and
+$\omega\ge2\sigma_{a+1}$, $-sb<s\eta^2/(8\omega)\le s\eta^2/(16\sigma_{a+1})\le3\eta^2/(8\sigma_{a+1})$ for $s\le6$.
+
+So the form is at least $2sb+2m_7>0$, and $\rho(G)>2\cosh\tau$ by \cref{lem:Q}. Together with part (b) this proves
+part (c).
+\end{proof}
+
+The bound $-sb<s\eta^2/(16\sigma_{a+1})$ is the only place where $s\le6$ is used.
+
+\section{Computation}\label{sec:data}
+
+For each pair $(n,s)$ in \cref{tab:data} all connected graphs with $n$ vertices and $n+s$ edges, one from each
+isomorphism class, were generated with \texttt{geng} from nauty~2.8.9~\cite{MP14}, and their indices were computed in
+double precision. For the last four rows of the right half only the graphs with all degrees in $\{2,3\}$ were generated, so those rows
+are not exhaustive. In every row with $s\mid n$ the smallest index is $\lambda(n,s)$ to within
+$10^{-14}$. In these rows every graph whose index is within $10^{-9}$ of the minimum has degrees in $\{2,3\}$ (only $3$
+when $n=2s$), exactly $2s$ vertices of degree $3$, $3s$ internal paths of lengths $a$ and $a+1$, and exactly $r/s$ ends
+of paths of length $a+1$ at each vertex of degree $3$. The minimizer counts at $(10,5)$ and
+$(14,7)$ are the numbers of connected cubic graphs on $10$ and $14$ vertices. In every row with $s\nmid n$ the
+minimum exceeds $\lambda(n,s)$.
+
+\Cref{tab:half} lists the pairs with $s$ even and $n$ an odd multiple of $s/2$. The first five come from the runs of
+\cref{tab:data}; for $(13,2)$ all connected graphs were generated, and for the last three pairs only the graphs with all
+degrees in $\{2,3\}$. In every row the smallest index agrees with $\kappa(n,s)$, computed from \eqref{eq:Z}, to within
+$10^{-12}$, and the graphs attaining it are, up to isomorphism, exactly the simple graphs $B_L$ with $L$ split; these
+were generated separately from \cref{def:half}.
+
+\begin{table}[ht]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rrrlrr@{\qquad}rrrlrr}
+\toprule
+$n$ & $s$ & graphs & $\lambda(n,s)$ & $\min-\lambda$ & min.\ & $n$ & $s$ & graphs & $\lambda(n,s)$ & $\min-\lambda$ & min.\\
+\midrule
+4 & 1 & 1 & 2.561553 & 0 & 1 & 9 & 3 & 4495 & 2.732051 & 0 & 7\\
+4 & 2 & 1 & 3 & 0 & 1 & 9 & 4 & 8404 & 2.921165 & $6.76\times10^{-3}$ & 1\\
+5 & 1 & 5 & 2.449490 & 0 & 1 & 10 & 1 & 2678 & 2.256190 & 0 & 2\\
+5 & 2 & 4 & 2.850781 & $4.99\times10^{-3}$ & 1 & 10 & 2 & 8548 & 2.449490 & 0 & 2\\
+6 & 1 & 19 & 2.391382 & 0 & 1 & 10 & 3 & 22950 & 2.666667 & $4.17\times10^{-3}$ & 4\\
+6 & 2 & 22 & 2.732051 & 0 & 2 & 10 & 4 & 53863 & 2.850781 & $4.99\times10^{-3}$ & 7\\
+6 & 3 & 20 & 3 & 0 & 2 & 10 & 5 & 112618 & 3 & 0 & 19\\
+7 & 1 & 67 & 2.342923 & 0 & 2 & 11 & 1 & 8833 & 2.236068 & 0 & 2\\
+7 & 2 & 107 & 2.637459 & $3.73\times10^{-3}$ & 2 & 11 & 2 & 33851 & 2.419157 & $1.07\times10^{-3}$ & 2\\
+7 & 3 & 132 & 2.896805 & $6.41\times10^{-3}$ & 2 & 11 & 3 & 109844 & 2.610317 & $2.38\times10^{-3}$ & 4\\
+8 & 1 & 236 & 2.302776 & 0 & 2 & 12 & 2 & 130365 & 2.391382 & 0 & 3\\
+8 & 2 & 486 & 2.561553 & 0 & 3 & 12 & 3 & 499888 & 2.561553 & 0 & 10\\
+8 & 3 & 814 & 2.808143 & $3.88\times10^{-3}$ & 1 & 12 & 4 & 1694642 & 2.732051 & 0 & 27\\
+8 & 4 & 1169 & 3 & 0 & 5 & 14 & 2 & 931 & 2.342923 & 0 & 5\\
+9 & 1 & 797 & 2.278414 & 0 & 2 & 15 & 3 & 13987 & 2.449490 & 0 & 6\\
+9 & 2 & 2075 & 2.500000 & $3.50\times10^{-3}$ & 2 & 16 & 4 & 140220 & 2.561553 & 0 & 43\\
+ &  &  &  &  &  & 14 & 7 & 509 & 3 & 0 & 509\\
+\bottomrule
+\end{tabular}
+\caption{Connected graphs with $n$ vertices and $n+s$ edges: number of isomorphism classes, the bound $\lambda(n,s)$,
+the difference between the smallest index and the bound ($0$ means below $10^{-14}$ in absolute value), and the
+number of graphs attaining the smallest index. The last four rows of the right half count only graphs with degrees in
+$\{2,3\}$.}
+\label{tab:data}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{rrrrrlr}
+\toprule
+$n$ & $s$ & $n/s$ & $a$ & $j$ & $\kappa(n,s)$ & min.\\
+\midrule
+5 & 2 & $5/2$ & 1 & 0 & 2.855773 & 1\\
+7 & 2 & $7/2$ & 1 & 1 & 2.641186 & 2\\
+9 & 2 & $9/2$ & 1 & 2 & 2.503504 & 2\\
+10 & 4 & $5/2$ & 1 & 0 & 2.855773 & 7\\
+11 & 2 & $11/2$ & 2 & 0 & 2.420231 & 2\\
+13 & 2 & $13/2$ & 2 & 1 & 2.367098 & 2\\
+14 & 4 & $7/2$ & 1 & 1 & 2.641186 & 17\\
+15 & 2 & $15/2$ & 2 & 2 & 2.323057 & 2\\
+17 & 2 & $17/2$ & 3 & 0 & 2.290776 & 2\\
+\bottomrule
+\end{tabular}
+\caption{Pairs $(n,s)$ with $s$ even and $n$ an odd multiple of $s/2$: the value $\kappa(n,s)$ of \cref{thm:half}
+and the number of graphs attaining the smallest index. For $(13,2)$ the search covers the $489387$ connected graphs
+with $13$ vertices and $15$ edges; the last three rows count only graphs with degrees in $\{2,3\}$ ($19587$, $1423$ and
+$3070$ graphs).}
+\label{tab:half}
+\end{table}
+
+\FloatBarrier
+
+\section*{Acknowledgments and funding}
+
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math
+Brain~\cite{MathBrainRepo} and working inside the Brain framework~\cite{BrainFramework}; see also the Math Brain
+paper~\cite{MathBrainPaper}.
+
+The research presented in this paper was supported by the European Research Council (ERC) under the European
+Union's Horizon Europe research and innovation programme (grant agreement No.\ 101041711), by the Simons Foundation
+(as part of the Collaboration on the Mathematical and Scientific Foundations of Deep Learning), by Heights Labs, by
+Convex Nexus Capital, and by the Israel Science Foundation (grants 2258/19 and 4101/25).
+
+\section*{Declaration of competing interest}
+
+The author holds equity in Heights Labs and Convex Nexus Capital and has a management role at Convex Nexus Capital.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+
+This paper is part of a broader research project on proving open problems with AI systems.
+The proofs of \cref{thm:main,thm:half} were proposed by OpenAI Codex agents and checked by Anthropic Claude agents, working under the
+author's direction with the shared memory of Math Brain \cite{MathBrainRepo,MathBrainPaper} and the Brain framework
+\cite{BrainFramework}. The agents also drafted the text and wrote the scripts of the data section. The author directed the work and is responsible for the content of the paper and for decisions
+concerning its dissemination.
+
+\section*{Data and code availability}
+
+The script that produces \cref{tab:data,tab:half} from the output of \texttt{geng}, computes $\lambda(n,s)$ and
+$\rho(\mathcal M_{n,n+s})$, and compares every minimizer it finds with \cref{thm:main}, the script that generates the
+graphs of \cref{def:half}, computes $\kappa(n,s)$ and compares both with the computed minimizers, and a high-precision
+check of the
+inequalities of \cref{sec:halfproof} are available at\newline
+\url{https://github.com/yspennstate/belardo-minimum-index}.
+
+\appendix
+\section{Notation}\label{app:notation}
+
+{\small
+\begin{longtable}{l>{\raggedright\arraybackslash}p{0.46\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}}
+\toprule
+Symbol & Meaning & First used\\
+\midrule
+\endhead
+$\G(n,s)$ & connected graphs with $n$ vertices and $n+s$ edges & \cref{sec:intro}\\
+$\rho(G)$ & index (largest adjacency eigenvalue) of $G$ & \cref{sec:intro}\\
+$\theta(x,y,z)$ & theta graph & \cref{sec:intro}\\
+$D(x,y,z)$ & dumbbell & \cref{sec:intro}\\
+$\Delta(G)$, $\delta(G)$ & maximum and minimum degree of $G$ & \cref{sec:intro}\\
+$\mu$ & $\lceil n/3\rceil$ in Simi\'c's theorem ($s=1$) & \cref{sec:intro}\\
+internal path & path whose ends have degree at least $3$ and inner vertices degree $2$ & \cref{sec:intro}\\
+$c$, $h$ & $s+1$ and $n/s-3k$, as in~\cite{Be19} & \cref{sec:intro}\\
+$B(k)$ & $B$ with $k$ vertices inserted into each edge & \cref{sec:intro}\\
+$a$, $r$ & $n+s=3sa+r$, $0\le r<3s$ & \eqref{eq:ar}\\
+$\Phi(t)$ & $(3s-r)\tanh(at/2)+r\tanh((a+1)t/2)$ & \eqref{eq:Phi}\\
+$t_*$, $\lambda(n,s)$ & root of $\Phi(t)=s\coth t$; $2\cosh t_*$ & \cref{sec:intro}, \cref{lem:tstar}\\
+$\varepsilon$, $w_i$, $\alpha_i$, $\beta_i$ & terms of Simi\'c's identity~\cite[eq.~(2)]{Be19} & \eqref{eq:simic}\\
+$B$, $B_L$ & connected cubic multigraph on $2s$ vertices; its subdivision by $L$ & \cref{sec:intro}, \cref{def:balanced}\\
+length function, $L$ & map $E(B)\to\{a,a+1\}$ with exactly $r$ long edges & \cref{def:balanced}\\
+long, short edge & edge $e$ of $B$ with $L(e)=a+1$ (long) or $L(e)=a$ (short) & \cref{def:balanced}\\
+$j$-balanced, $j$ & every vertex of $B$ is an end of exactly $j$ long edges & \cref{def:balanced}\\
+$\mathcal M_{n,e}$ & nonnegative symmetric $n\times n$ matrices, entry sum $2e$, integral row sums & \cref{sec:intro}\\
+$C$, core & graph left from $G$ after deleting vertices of degree one repeatedly & \cref{sec:core}\\
+$d_C(v)$ & degree of $v$ in $C$ & \cref{sec:core}\\
+branch vertex & vertex of degree at least $3$ in $C$ & \cref{sec:core}\\
+$p$, $q$ & numbers of branch vertices and of internal paths of $C$ & \cref{sec:core}\\
+$\ell$, $P_i$, $\ell_i$, $\ell_0$, $\ell'$ & length of an internal path; internal paths of $C$ and their lengths; lengths $a$, $a+1$ on $r$ marked edges and padded lengths & \cref{sec:intro}, \cref{lem:core}, proof of \cref{thm:half}(b)\\
+$m_i(v)$ & number of ends of $P_i$ at the branch vertex $v$ & \cref{sec:test}\\
+$f=f_t$, $f_{t,x}$, $\nu$, $z_i$ & test vector; the same with weights $x_v$ at the branch vertices, equal to $f_t$ when every $x_v=1$; position of a vertex on an internal path; vertices of an internal path & \cref{sec:test}, \cref{lem:Q}\\
+$N$ & integer bound on the total length in \cref{lem:lengths} & \cref{lem:lengths}\\
+$A_C$, $A_G$ & adjacency matrices of $C$ and $G$ & \cref{sec:test}\\
+$M$, $M_0$ & perfect matching of $B$; perfect matching of the M\"obius ladder & \cref{cor:belardo}, \cref{sec:proof}\\
+$X$, $Y$, split & the two sets of $s$ vertices of $B$; \cref{def:half} & \cref{def:half}\\
+$u_l$, $\sigma_l$ & $\tanh(lt/2)$; $1/\sinh(lt)$ & \cref{sec:halfresult}\\
+$\eta$, $\eta_l$, $b$, $\omega$ & $u_{a+1}-u_a$, and $\eta_l=u_{l+1}-u_l$, so that $\eta=\eta_a$; $\coth t-3u_a-(j+\frac12)\eta$; $(2-j)\sigma_a+j\sigma_{a+1}$ & \cref{sec:halfresult}\\
+$Z(t)$ & the $2\times2$ matrix of \eqref{eq:Z} & \eqref{eq:Z}\\
+$\tau$, $\kappa(n,s)$ & zero of the larger eigenvalue of $Z(t)$; $2\cosh\tau$ & \cref{sec:halfresult}, \cref{lem:tau}\\
+$\zeta(t)$ & larger eigenvalue of $Z(t)$ & \cref{lem:tau}\\
+$H$ & cubic multigraph with two pairs of parallel edges, $s=2$ & \cref{sec:halfresult}\\
+$\gamma_l$, $\psi$, $\Psi$ & $\sinh t/(\sinh(lt)\sinh((l+1)t))$; $t/2$; $a\psi$ & \cref{sec:halfproof}\\
+$Q_t(B,\ell,x)$, $T_l$ & quadratic form of \eqref{eq:Q} and its edge term & \eqref{eq:Q}\\
+
+$V(\cdot)$, $E(\cdot)$ & vertex set; edge set & \cref{def:balanced}\\
+${}^{\mathsf T}$ & transpose & \cref{lem:tau}\\
+$R$ & ratio of the entries of the zero eigenvector of $Z(\tau)$ & \cref{lem:tau}\\
+$k$, $k_v$, $K$, $m$ & integer with $n=(3k+h)s$, or number of vertices inserted in $B(k)$; long edges at $v$, written $k$ when $v$ is fixed; sum of $k_v$ over $X$; $sj-K$ & \cref{sec:intro}, \cref{lem:cut}\\
+$\xi$, $h_v$, $g_v$, $W$ & $\coth\tau-3u_a$; short and long edges between $X$ and $Y$ at $v$; sum of $\sigma$ over them & \cref{lem:cut}\\
+$\Gamma_l(x,y)$ & $T_{l+1}(x,y)-T_l(x,y)$ & \cref{sec:halfproof}\\
+$S$, $m_7$ & $(3s-r)u_a+ru_{a+1}$; least gain of the last step & proof of \cref{thm:half}(c)\\
+\bottomrule
+\end{longtable}
+}
+
+\begin{thebibliography}{99}
+
+\bibitem{Be19}
+F.~Belardo, \emph{Connected graphs of fixed order and size with minimum index}, in: F.~Belardo, D.~Cvetkovi\'c,
+T.~Davidovi\'c and Z.~Stani\'c (eds.), \emph{Mathematical Achievements of Slobodan Simi\'c}, Akademska misao, Beograd,
+2019, pp.~96--103.
+\url{https://www.mi.sanu.ac.rs/novi_sajt/research/projects/Matematicka_dostignuca_S_Simica_print_fajl.pdf}
+
+\bibitem{BEH}
+S.~Ben-Shimon, I.~Eisner and S.~Hoory, \emph{A new lower bound on the spectral radius of graphs with prescribed average
+degree}, arXiv:2607.17895, 2026.
+
+\bibitem{CGM24}
+S.~M.~Cioab\u{a}, V.~Gupta and C.~Marques, \emph{On the minimum spectral radius of connected graphs of given order and
+size}, Spec.\ Matrices \textbf{12} (2024), 20240027. \doi{10.1515/spma-2024-0027}
+
+\bibitem{CS57}
+L.~Collatz and U.~Sinogowitz, \emph{Spektren endlicher Grafen}, Abh.\ Math.\ Sem.\ Univ.\ Hamburg \textbf{21} (1957),
+63--77. \doi{10.1007/BF02941924}
+
+\bibitem{Gu24}
+V.~Gupta, \emph{Minimum spectral radius in a given class of graphs}, talk slides, Algebraic Graph Theory Seminar,
+University of Waterloo, 2 December 2024.
+\url{https://www.math.uwaterloo.ca/~agtheory/Slides/AGT_Seminar_talk_slides_Vishal.pdf}
+
+\bibitem{HS75}
+A.~J.~Hoffman and J.~H.~Smith, \emph{On the spectral radii of topologically equivalent graphs}, in: M.~Fiedler (ed.),
+\emph{Recent Advances in Graph Theory}, Academia, Praha, 1975, pp.~273--281.
+
+\bibitem{Ho93}
+Y.~Hong, \emph{Bounds of eigenvalues of graphs}, Discrete Math.\ \textbf{123} (1993), 65--74.
+\doi{10.1016/0012-365X(93)90007-G}
+
+\bibitem{KDSS}
+K.~Kosti\'c, Z.~Dra\v{z}i\'c, A.~Savi\'c and Z.~Stani\'c, \emph{Variable neighbourhood search for connected graphs of
+fixed order and size with minimal spectral radius}, Kuwait J.\ Sci.\ \textbf{51} (2024), 100142.
+\doi{10.1016/j.kjs.2023.10.009}
+
+\bibitem{MathBrainRepo}
+Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026.
+\url{https://github.com/yspennstate/math-brain-public}
+
+\bibitem{MathBrainPaper}
+Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026.
+\url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}
+
+\bibitem{BrainFramework}
+Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026.
+\url{https://github.com/yspennstate/brain-framework-public}
+
+\bibitem{MP14}
+B.~D.~McKay and A.~Piperno, \emph{Practical graph isomorphism, II}, J.\ Symbolic Comput.\ \textbf{60} (2014), 94--112.
+\doi{10.1016/j.jsc.2013.09.003}
+
+\bibitem{Re18}
+T.~R\'eti, \emph{Graph irregularity and a problem raised by Hong}, Acta Polytech.\ Hungar.\ \textbf{15} (2018), no.~6,
+27--43. \doi{10.12700/APH.15.6.2018.6.2}
+
+\bibitem{RY93}
+P.~Rowlinson and Y.~Yang, \emph{Tricyclic Hamiltonian graphs with minimal index}, Linear Multilinear Algebra
+\textbf{34} (1993), no.~3--4, 187--196. \doi{10.1080/03081089308818221}
+
+\bibitem{Si89}
+S.~K.~Simi\'c, \emph{On the largest eigenvalue of bicyclic graphs}, Publ.\ Inst.\ Math.\ (Beograd) (N.S.)
+\textbf{46(60)} (1989), 1--6.
+
+\bibitem{SK86}
+S.~K.~Simi\'c and V.~Lj.~Koci\'c, \emph{On the largest eigenvalue of some homeomorphic graphs}, Publ.\ Inst.\ Math.\
+(Beograd) (N.S.) \textbf{40(54)} (1986), 3--9.
+
+\end{thebibliography}
+
+\end{document}

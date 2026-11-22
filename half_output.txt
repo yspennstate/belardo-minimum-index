@@ -1,0 +1,30 @@
+n=13 s=2 graphs=489387 a=2 r=3 s|n=False bound=2.366025403784438 min=2.367098425857019 min-bound=1.073e-03 minimizers=2
+  L??CA?_eAgDO@W degrees=[2, 3] branch=4 lengths=[2, 2, 2, 3, 3, 3] long_ends=[1, 2]
+  L??CA?_eAgCoAW degrees=[2, 3] branch=4 lengths=[2, 2, 2, 3, 3, 3] long_ends=[1, 2]
+degrees 2..3 only:
+n=14 s=4 graphs=19587 a=1 r=6 s|n=False bound=2.637458608817687 min=2.641186476193290 min-bound=3.728e-03 minimizers=17
+  M??CAA_SDOF?@o@S? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_SDOE_Ao@S? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_EA_k_Ao@g? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_EA_kGB_@g? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_E@_d_Oop?? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_E@_coQOp?? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_EAGk_CoAg? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_EAGi_Goi?? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_EAGkGD_Ag? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_EAGiGH_i?? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_E@Gm?@oaO? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CAA_E@GkODOaO? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CA?oICPW_@oCS? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CA?oBD@POSOPC? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CA?oBCP[?@oCS? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CA?oBCPW_GoCS? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+  M??CA?oBCPOoWOSC? degrees=[2, 3] branch=8 lengths=[1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2] long_ends=[1, 2]
+degrees 2..3 only:
+n=15 s=2 graphs=1423 a=2 r=5 s|n=False bound=2.321899601181040 min=2.323056759355811 min-bound=1.157e-03 minimizers=2
+  N??CA?_C?OW_L?Ao?F? degrees=[2, 3] branch=4 lengths=[2, 3, 3, 3, 3, 3] long_ends=[2, 3]
+  N??CA?_C?OW_L?Ag?J? degrees=[2, 3] branch=4 lengths=[2, 3, 3, 3, 3, 3] long_ends=[2, 3]
+degrees 2..3 only:
+n=17 s=2 graphs=3070 a=3 r=1 s|n=False bound=2.290327805520104 min=2.290776209081232 min-bound=4.484e-04 minimizers=2
+  P???C@?G?_@?@_p?EO?R??F? degrees=[2, 3] branch=4 lengths=[3, 3, 3, 3, 3, 4] long_ends=[0, 1]
+  P???C@?G?_@?@_p?EO?Q_?J? degrees=[2, 3] branch=4 lengths=[3, 3, 3, 3, 3, 4] long_ends=[0, 1]

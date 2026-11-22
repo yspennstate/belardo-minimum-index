@@ -1,0 +1,14 @@
+j=0 a=1 kappa=2cosh(tau)=2.855772506636 R=1.077718 m_7/(6 eta^2/(16 sigma_(a+1)))=1.3333
+j=0 a=2 kappa=2cosh(tau)=2.420231344668 R=1.076705 m_7/(6 eta^2/(16 sigma_(a+1)))=1.6731
+j=0 a=10 kappa=2cosh(tau)=2.135144436161 R=1.075940 m_7/(6 eta^2/(16 sigma_(a+1)))=1.8746
+j=0 a=1000 kappa=2cosh(tau)=2.121320343560 R=1.075901 m_7/(6 eta^2/(16 sigma_(a+1)))=1.8856
+j=1 a=1 kappa=2cosh(tau)=2.641186476193 R=1.091915 m_7/(6 eta^2/(16 sigma_(a+1)))=1.3333
+j=1 a=2 kappa=2cosh(tau)=2.367098425857 R=1.092590 m_7/(6 eta^2/(16 sigma_(a+1)))=1.7519
+j=1 a=10 kappa=2cosh(tau)=2.133821657101 R=1.089730 m_7/(6 eta^2/(16 sigma_(a+1)))=1.8783
+j=1 a=1000 kappa=2cosh(tau)=2.121320343560 R=1.089459 m_7/(6 eta^2/(16 sigma_(a+1)))=1.8856
+j=2 a=1 kappa=2cosh(tau)=2.503504498940 R=1.133767 m_7/(6 eta^2/(16 sigma_(a+1)))=1.3333
+j=2 a=2 kappa=2cosh(tau)=2.323056759356 R=1.122182 m_7/(6 eta^2/(16 sigma_(a+1)))=1.8238
+j=2 a=10 kappa=2cosh(tau)=2.132488167871 R=1.109645 m_7/(6 eta^2/(16 sigma_(a+1)))=1.8820
+j=2 a=1000 kappa=2cosh(tau)=2.121320343560 R=1.108901 m_7/(6 eta^2/(16 sigma_(a+1)))=1.8856
+checks 1860 failures 0 []
+control: smallest even s with m_7 <= s eta^2/(16 sigma_2) at a=1, j=0: 8
