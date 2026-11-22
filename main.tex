@@ -95,9 +95,10 @@ The orders $n=(3k+h)s$ with $k\ge0$ and $h\in\{2,3,4\}$ are exactly the multiple
 main theorem determines the minimum and all minimizers at these orders, with no assumption on the path lengths, and
 gives a lower bound for every $n\ge2s$. When $s$ does not divide $n$ the bound is strict. For even $s$ and $n$ an odd
 multiple of $s/2$, \cref{thm:half} determines the minimum and the minimizers among the graphs in which every
-branch vertex of the core has degree $3$, and over all of $\G(n,s)$ when $s\le6$. For $s=2$ these are the graphs of odd order, the part of
-the case $s=2$ that~\cite[p.~103]{Be19} describes as unfinished, and Gupta~\cite[slide~21]{Gu24} lists the
-minimizers among tricyclic graphs as an open problem; \cref{cor:tricyclic} gives them for every order. To state the
+branch vertex of the core has degree $3$, and over all of $\G(n,s)$ when $s\le6$. For $s=2$ these are the graphs of odd order, which
+Theorem~7 and Conjecture~9 of~\cite{Be19} do not reach. Belardo~\cite[p.~103]{Be19} describes the tricyclic case as
+unfinished, and Gupta~\cite[slide~21]{Gu24} lists the minimizers among tricyclic graphs as an open problem;
+\cref{cor:tricyclic} gives them for every order. To state the
 main theorem, write
 \begin{equation}\label{eq:ar}
 n+s=3sa+r,\qquad 0\le r<3s ,
@@ -221,8 +222,8 @@ $n/s\in\{6,7\}$ and $n/s\ge9$ the minimum and the minimizers are not given by~\c
 When $s$ does not divide $n$ we computed $\rho(\mathcal M_{n,n+s})$ in closed form from~\cite[Theorems~1.4
 and~1.5]{BEH}; the formula is in the script of the data section. For $s\le12$ and $2s\le n\le12s$ with $s\nmid n$, it agrees with $\lambda(n,s)$ to $10^{-15}$
 when $n<5s$, and when $n>5s$ it is smaller than $\lambda(n,s)$ by at least $3.5\times10^{-4}$. At these orders with
-$n<5s$ the inequality $\rho(G)\ge\lambda(n,s)$ therefore agrees with the bound of~\cite{BEH} to within $10^{-15}$.
-That no graph attains it is part of \cref{thm:main}; for the bound of~\cite{BEH} it is the Note after~\cite[Theorem~1.7]{BEH}.
+$n<5s$ no graph attains either bound: for $\lambda(n,s)$ this is part of \cref{thm:main}, and for the bound
+of~\cite{BEH} it is the Note after~\cite[Theorem~1.7]{BEH}.
 
 \subsection{Odd multiples of \texorpdfstring{$s/2$}{s/2}}\label{sec:halfresult}
 
@@ -618,7 +619,7 @@ $Y$, and at $v\in Y$ with $k=k_v$ and $g_v$ long edges to $X$, the vanishing of 
 \begin{equation}\label{eq:XY}
 \begin{aligned}
 R(\xi-k\eta)&=(R-1)(k\sigma_{a+1}+h_v\sigma_a)&&(v\in X),\\
-3u_a+k\eta-\xi&=(R-1)\bigl((3-k)\sigma_a+g_v\sigma_{a+1}\bigr)&&(v\in Y).
+k\eta-\xi&=(R-1)\bigl((3-k)\sigma_a+g_v\sigma_{a+1}\bigr)&&(v\in Y).
 \end{aligned}
 \end{equation}
 We show that $k_v$ is constant on $X$ and on $Y$. If $j=0$, then $K=0$, so $k_v=0$ on $X$ and there are no long edges
@@ -749,7 +750,7 @@ So the form is at least $2sb+2m_7>0$, and $\rho(G)>2\cosh\tau$ by \cref{lem:Q}. 
 part (c).
 \end{proof}
 
-The bound $-sb<s\eta^2/(16\sigma_{a+1})$ is the only place where $s\le6$ is used.
+The inequality $s\eta^2/(16\sigma_{a+1})\le3\eta^2/(8\sigma_{a+1})$ is the only place where $s\le6$ is used.
 
 \section{Computation}\label{sec:data}
 
@@ -908,7 +909,6 @@ $\zeta(t)$ & larger eigenvalue of $Z(t)$ & \cref{lem:tau}\\
 $H$ & cubic multigraph with two pairs of parallel edges, $s=2$ & \cref{sec:halfresult}\\
 $\gamma_l$, $\psi$, $\Psi$ & $\sinh t/(\sinh(lt)\sinh((l+1)t))$; $t/2$; $a\psi$ & \cref{sec:halfproof}\\
 $Q_t(B,\ell,x)$, $T_l$ & quadratic form of \eqref{eq:Q} and its edge term & \eqref{eq:Q}\\
-
 $V(\cdot)$, $E(\cdot)$ & vertex set; edge set & \cref{def:balanced}\\
 ${}^{\mathsf T}$ & transpose & \cref{lem:tau}\\
 $R$ & ratio of the entries of the zero eigenvector of $Z(\tau)$ & \cref{lem:tau}\\
@@ -941,8 +941,9 @@ L.~Collatz and U.~Sinogowitz, \emph{Spektren endlicher Grafen}, Abh.\ Math.\ Sem
 63--77. \doi{10.1007/BF02941924}
 
 \bibitem{Gu24}
-V.~Gupta, \emph{Minimum spectral radius in a given class of graphs}, talk slides, Algebraic Graph Theory Seminar,
-University of Waterloo, 2 December 2024.
+V.~Gupta, \emph{Minimum spectral radius in a given class of graphs}, talk at the Algebraic Graph Theory Seminar,
+University of Waterloo, 2 December 2024, \url{https://www.math.uwaterloo.ca/~agtheory/}; slides (titled
+\emph{Minimum Spectral Radius}) at
 \url{https://www.math.uwaterloo.ca/~agtheory/Slides/AGT_Seminar_talk_slides_Vishal.pdf}
 
 \bibitem{HS75}
